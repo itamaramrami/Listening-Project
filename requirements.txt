@@ -1,0 +1,5 @@
+pymongo
+fastapi
+uvicorn
+kafka-python
+elasticsearch==8.19.0
