@@ -1,5 +1,8 @@
 from pathlib import Path
 from datetime import datetime
+from Loger_loges.loger import Logger_log
+
+loger=Logger_log()
 
 class Metadata:
     def __init__(self,path):
@@ -13,15 +16,19 @@ class Metadata:
     
     
     def Create_json_for_metadat(self):
-        data={
-            "metadata":{
-            "name":self.file_name,
-            "size":self.size,
-            "time":str(self.creation_date)},
-            "path":str(self.file_path)
-        }
-        return data
+        try:
+            data={
+                "metadata":{
+                "name":self.file_name,
+                "size":self.size,
+                "time":str(self.creation_date)},
+                "path":str(self.file_path)
+            }
+            loger.get_logger().info("Create json for metadat succeeded")
+            return data
+        except Exception as e:
+            print(f"Create json for metadat failed: {e}")
+            loger.get_logger().error(f"Create json for metadat failed: {e}")
         
 
 
-# a=Metadata(r"C:\Users\IMOE001\Desktop\podcasts\download (1).wav")
