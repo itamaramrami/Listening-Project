@@ -5,6 +5,7 @@ from dataAlastic.Alastic import Alastic
 from conMongo.conmongo import conMongo
 from hash.hash import get_hash
 from Loger_loges.loger import Logger_log
+from Listen_text.Listen_text import lisien_text
 
 
 
@@ -21,7 +22,7 @@ def mein():
         for row in list_of_path:    
             data=Metadata(row)
             metadata=data.Create_json_for_metadat()
-            con.producer.send("moazin_metadata",metadata)
+            con.producer.send("moazin__metadata",metadata)
         con.producer.flush()
         alldata=con.get_message()
         loger.get_logger().info("metadata sent succeeded")
@@ -32,7 +33,8 @@ def mein():
         for data in alldata:
             dataa=data.value
             unique_identifier=get_hash(dataa["path"])
-            metadata={"metadata":dataa,"hash_id":unique_identifier}
+            text=lisien_text(dataa["path"])
+            metadata={"metadata":dataa,"hash_id":unique_identifier,"text":text}
             als.Loading_Data_Alastic(metadata)
             row=dataa["path"]
             with open(row, "rb") as image_file:

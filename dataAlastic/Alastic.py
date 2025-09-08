@@ -30,7 +30,7 @@ class Alastic:
     
     def GetData(self):
         res = self.es.search(
-            index='logger_loges',
+            index='metadata',
             query={"match_all": {}},
             size=1000
         )
@@ -38,5 +38,6 @@ class Alastic:
         return docs
 
 
-
+a=Alastic()
+print(a.GetData())
 

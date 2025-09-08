@@ -14,4 +14,8 @@ docker run -d --name elasticsearch --network my_network -p 9200:9200 -e "discove
 docker run -d --name mongomes -p 27017:27017 mongo:latest
 
 
-docker run --name kibana --network my_network  -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elasticsearch:9200" docker.elastic.co/kibana/kibana:9.1.3
+docker run -d --name kibana --network my_network -p 5601:5601 kibana:tag
+
+
+docker run -d --name kibana --network my_network -p 5601:5601 -e ELASTICSEARCH_HOSTS=http:elasticsearch:9200
+docker.elastic.co/kibana/kibana:8.12.1

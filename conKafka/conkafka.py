@@ -18,7 +18,7 @@ class kafka:
             loger.get_logger().error(f"producer connection failed: {e}")
         try:
             self.consumer = KafkaConsumer(
-                    "moazin_metadata",
+                    "moazin__metadata",
                     bootstrap_servers='localhost:9092',
                     auto_offset_reset='earliest', 
                     enable_auto_commit=True,
