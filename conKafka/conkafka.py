@@ -10,7 +10,7 @@ class kafka:
             value_serializer=lambda v: json.dumps(v).encode("utf-8"))
 
         self.consumer = KafkaConsumer(
-                "metadata",
+                "moazin_data",
                 bootstrap_servers='localhost:9092',
                 auto_offset_reset='earliest', 
                 enable_auto_commit=True,
@@ -18,7 +18,9 @@ class kafka:
             )
 
 
-
+    def get_message(self):
+        msgs = self.consumer
+        return msgs
 
 
 

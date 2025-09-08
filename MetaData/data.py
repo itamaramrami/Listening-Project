@@ -9,7 +9,7 @@ class Metadata:
         self.size = self.file_info.st_size
         self.time = self.file_info.st_ctime
         self.creation_date = datetime.fromtimestamp(self.time)
-        print(self.file_path)
+       
     
     
     def Create_json_for_metadat(self):
