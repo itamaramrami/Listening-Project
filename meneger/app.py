@@ -11,7 +11,7 @@ from Listen_text.Listen_text import lisien_text
 
 con=kafka()
 als=Alastic()
-mon=conMongo("mongodb://localhost:27017","moazin","metadata")
+mon=conMongo("mongodb://localhost:27017","data_moazin","metadata")
 loger=Logger_log()
 
 
@@ -22,7 +22,7 @@ def mein():
         for row in list_of_path:    
             data=Metadata(row)
             metadata=data.Create_json_for_metadat()
-            con.producer.send("moazin__metadata",metadata)
+            con.producer.send("data_moazin",metadata)
         con.producer.flush()
         alldata=con.get_message()
         loger.get_logger().info("metadata sent succeeded")
@@ -33,13 +33,15 @@ def mein():
         for data in alldata:
             dataa=data.value
             unique_identifier=get_hash(dataa["path"])
-            text=lisien_text(dataa["path"])
+            lisien=lisien_text()
+            text=lisien.get_text(dataa["path"])
             metadata={"metadata":dataa,"hash_id":unique_identifier,"text":text}
             als.Loading_Data_Alastic(metadata)
             row=dataa["path"]
             with open(row, "rb") as image_file:
                 mon.fs.put(image_file,nique=unique_identifier)
             loger.get_logger().info("Loading data into Mongo + Alastic was successfully sent.")
+
     except Exception as e:
         print(f"Loading data into Mongo + Alastic was failed sent: {e}")
         loger.get_logger().error(f"Loading data into Mongo + Alastic was failed sent: {e}")

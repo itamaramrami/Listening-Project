@@ -33,10 +33,3 @@ class Logger_log:
             cls._logger = logger
             return logger
 
-
-# a=Logger.get_logger()
-
-# a.info("itamar")
-# a.error("amrami")
-# v=Alastic()
-# print(v.GetData())

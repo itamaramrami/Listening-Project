@@ -18,7 +18,7 @@ class kafka:
             loger.get_logger().error(f"producer connection failed: {e}")
         try:
             self.consumer = KafkaConsumer(
-                    "moazin__metadata",
+                    "data_moazin",
                     bootstrap_servers='localhost:9092',
                     auto_offset_reset='earliest', 
                     enable_auto_commit=True,
@@ -40,7 +40,13 @@ class kafka:
             loger.get_logger().error(f"get messag failed: {e}")
 
             
-
+    def get_last_message(self, timeout=1000):
+        last = None
+        msgs = self.consumer.poll(timeout_ms=timeout)  
+        for tp, records in msgs.items():
+            for record in records:
+                last = record.value  
+        return last
 
 
 
