@@ -18,7 +18,7 @@ class kafka:
             loger.get_logger().error(f"producer connection failed: {e}")
         try:
             self.consumer = KafkaConsumer(
-                    "data_moazin",
+                    "MetaData_Moazin",
                     bootstrap_servers='localhost:9092',
                     auto_offset_reset='earliest', 
                     enable_auto_commit=True,
@@ -32,8 +32,10 @@ class kafka:
 
     def get_message(self):
         try:
-            msgs = self.consumer
-            loger.get_logger().info("get messag succeeded")
+            while True:
+                msgs = self.consumer
+                loger.get_logger().info("get messag succeeded")
+                break
             return msgs
         except Exception as e:
             print(f"get messag failed: {e}")
@@ -47,6 +49,7 @@ class kafka:
             for record in records:
                 last = record.value  
         return last
+        
 
 
 

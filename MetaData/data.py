@@ -18,10 +18,10 @@ class Metadata:
     def Create_json_for_metadat(self):
         try:
             data={
-                "metadata":{
+                
                 "name":self.file_name,
                 "size":self.size,
-                "time":str(self.creation_date)},
+                "time":str(self.creation_date),
                 "path":str(self.file_path)
             }
             loger.get_logger().info("Create json for metadat succeeded")
